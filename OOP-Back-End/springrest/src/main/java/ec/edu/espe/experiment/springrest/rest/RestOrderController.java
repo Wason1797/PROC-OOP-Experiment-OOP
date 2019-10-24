@@ -2,6 +2,7 @@ package ec.edu.espe.experiment.springrest.rest;
 
 import java.util.List;
 
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +31,8 @@ public class RestOrderController{
 
     @GetMapping(value = "/id/{id}")
     public Order get(@PathVariable("id") Integer id) {
-        return new Order();
+        Order response = dao.get(id);
+        return response;
     }
 
     @PostMapping
