@@ -53,7 +53,6 @@ def get_ingredients():
 @urls.route('/size', methods=POST)
 def create_size():
     try:
-
         size_serializer = SizeSerializer()
         new_size = size_serializer.load(request.json)
         db.session.add(new_size)
@@ -61,7 +60,6 @@ def create_size():
         return size_serializer.jsonify(new_size), 201
     except Exception:
         return Response(status=400)
-
 
 @urls.route('/size', methods=PUT)
 def update_size():
@@ -83,9 +81,13 @@ def get_size_by_id(_id):
     size_serializer = SizeSerializer()
     return size_serializer.jsonify(size) if size else Response(status=404)
 
+@urls.route('/size', methods=GET)
+def get_size():
+    result = get_all(Size, SizeSerializer)
+    return jsonify(result)
+
 
 # Order Routes
-
 @urls.route('/order', methods=POST)
 def create_order():
 
@@ -128,14 +130,13 @@ def create_order():
         return Response(status=400)
 
 
-@urls.route('/order', methods=GET)
-def get_orders():
-    result = get_all(Order, OrderSerializer)
-    return jsonify(result)
-
-
 @urls.route('/order/id/<_id>', methods=GET)
 def get_order_by_id(_id):
     order = Order()
     order_serializer = OrderSerializer()
-    return order_serializer.jsonify({}) if order else Response(status=404)
+    return order_serializer.jsonify(order) if order else Response(status=404)
+
+@urls.route('/order', methods=GET)
+def get_orders():
+    result = get_all(Order, OrderSerializer)
+    return jsonify(result)

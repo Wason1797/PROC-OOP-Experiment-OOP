@@ -27,7 +27,6 @@ class OrderDetailSerializer(ma.ModelSchema):
             'ingredient'
         )
 
-
 class OrderSerializer(ma.ModelSchema):
     size = ma.Nested(SizeSerializer)
     detail = ma.Nested(OrderDetailSerializer, many=True)
