@@ -27,6 +27,11 @@ public class RestSizeController {
 
     @Autowired
     private ISizeDAO dao;
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Size> getAll(){
+        return dao.getAll();
+
+    }
 
   
 

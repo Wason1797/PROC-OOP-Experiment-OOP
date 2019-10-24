@@ -51,6 +51,7 @@ public class OrderDAO implements IOrderDAO {
         }
         return list;
     }
+    @Override
 
     public Order get(Integer id) {
         Order order = new Order();
@@ -66,6 +67,7 @@ public class OrderDAO implements IOrderDAO {
         }
         return order;
     }
+    @Override
 
     public Order post(OrderEntityClient entity) {
         Order response = new Order();
@@ -80,7 +82,7 @@ public class OrderDAO implements IOrderDAO {
             dbOrder.setSize(repoSize.findById(entity.getSize()).get());
             repoOrder.save(dbOrder);
             repoOrder.flush();
-            List<Ingredient> list_ingredienList = daoDetail.post(dbOrder.getId(), entity.getIngredients());
+            List<Ingredient> list_ingreList = daoDetail.post(dbOrder.getId(), entity.getIngredients());
             Size size = daoSize.get(dbOrder.getSize().getId());
             Float total_price = 0f;
             
