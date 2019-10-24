@@ -9,6 +9,8 @@ public class Ingredient{
     public Ingredient(){
 
     }
+    
+    
 
     public Ingredient(Integer _id, String name, Float price){
         this._id = _id;

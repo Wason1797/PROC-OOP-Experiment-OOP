@@ -43,6 +43,7 @@ public class SizeDAO implements ISizeDAO{
             if(dbSize != null){
                 size = toSize(dbSize.get());
             }
+
         }
         catch(Exception e){
             size = null;

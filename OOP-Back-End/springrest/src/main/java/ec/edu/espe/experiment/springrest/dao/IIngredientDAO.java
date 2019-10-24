@@ -12,4 +12,5 @@ public interface IIngredientDAO{
     public Ingredient put(Ingredient entity);
     public Ingredient post(Ingredient entity);
     public Ingredient toIngredient(DBIngredient dbIngredient);
+    
 }

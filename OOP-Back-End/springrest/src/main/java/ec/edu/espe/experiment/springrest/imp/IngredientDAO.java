@@ -40,7 +40,10 @@ public class IngredientDAO implements IIngredientDAO{
     public Ingredient get(Integer id){
         Ingredient ingredient = null;
         try{
-            
+            Optional<DBIngredient> dbIngredient = repo.findById(id);
+            if(dbIngredient != null){
+                ingredient= toIngredient(dbIngredient.get());
+            }
         }
         catch(Exception e){
             ingredient = null;
@@ -67,7 +70,7 @@ public class IngredientDAO implements IIngredientDAO{
 
     @Override
     public Ingredient put(Ingredient ingredient){
-        Ingredient response = null;
+        Ingredient response = new Ingredient();
         try{
             Optional<DBIngredient> dbIngredient = repo.findById(ingredient.get_id());
             if(dbIngredient != null){

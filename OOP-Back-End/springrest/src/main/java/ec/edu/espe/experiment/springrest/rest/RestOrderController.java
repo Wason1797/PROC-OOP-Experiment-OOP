@@ -24,13 +24,14 @@ public class RestOrderController{
     private IOrderDAO dao;
 
     @GetMapping
-    public List<Order> getAll() {        
+    public List<Order> getAll() {   
         return dao.getAll();
     }
 
     @GetMapping(value = "/id/{id}")
     public Order get(@PathVariable("id") Integer id) {
-        return new Order();
+        Order response = dao.get(id);
+        return response;
     }
 
     @PostMapping
