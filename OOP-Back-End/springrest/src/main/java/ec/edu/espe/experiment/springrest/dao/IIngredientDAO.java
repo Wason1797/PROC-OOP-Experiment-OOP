@@ -4,6 +4,7 @@ import java.util.List;
 
 import ec.edu.espe.experiment.springrest.dto.Ingredient;
 import ec.edu.espe.experiment.springrest.model.DBIngredient;
+import ec.edu.espe.experiment.springrest.model.DBOrder;
 
 
 public interface IIngredientDAO{
@@ -12,4 +13,6 @@ public interface IIngredientDAO{
     public Ingredient put(Ingredient entity);
     public Ingredient post(Ingredient entity);
     public Ingredient toIngredient(DBIngredient dbIngredient);
+    public Ingredient get(DBOrder dbOrder);
+    public Ingredient put(DBOrder dbOrder);
 }

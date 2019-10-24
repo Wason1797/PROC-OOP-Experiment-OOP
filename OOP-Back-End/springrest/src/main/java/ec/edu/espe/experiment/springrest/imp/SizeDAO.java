@@ -45,7 +45,7 @@ public class SizeDAO implements ISizeDAO{
             }
         }
         catch(Exception e){
-            size = null;
+            size = (Size) getAll();
         }
         return size;
     }
