@@ -48,6 +48,7 @@ public class OrderDAO implements IOrderDAO {
             }
         } catch (Exception e) {
             list = new ArrayList<>();
+            list.add(new Order());
         }
         return list;
     }

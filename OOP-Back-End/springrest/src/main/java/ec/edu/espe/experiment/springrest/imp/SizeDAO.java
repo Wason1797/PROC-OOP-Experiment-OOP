@@ -31,6 +31,7 @@ public class SizeDAO implements ISizeDAO{
         }
         catch(Exception e){
             list = new ArrayList<>();
+            
         }
         return list;
     }
