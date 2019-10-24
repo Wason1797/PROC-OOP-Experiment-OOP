@@ -74,7 +74,6 @@ public class DatabaseSeeder implements CommandLineRunner {
         
         details.add(detail);
         repodetail.saveAll(details);
-        
 
     }
 }

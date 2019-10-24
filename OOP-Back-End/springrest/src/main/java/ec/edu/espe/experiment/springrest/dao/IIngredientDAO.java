@@ -10,6 +10,6 @@ public interface IIngredientDAO{
     public List<Ingredient> getAll();
     public Ingredient get(Integer id);
     public Ingredient put(Ingredient entity);
-    public Ingredient post(Ingredient entity);
+    public Ingredient post(Ingredient ingredient);
     public Ingredient toIngredient(DBIngredient dbIngredient);
 }
