@@ -34,7 +34,7 @@ public class RestIngredientController {
     public List<Ingredient> getAll() {        
         return dao.getAll();
     }
-
+    
     @GetMapping(value = "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Ingredient> get(@PathVariable("id") Integer id) {
         Ingredient response =  dao.get(id);
