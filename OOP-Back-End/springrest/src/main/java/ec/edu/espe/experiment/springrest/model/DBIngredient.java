@@ -74,5 +74,13 @@ public class DBIngredient{
     public void setDetailorderList(List<DBDetailOrder> detailorder) {
         this.detailOrderList = detailorder;
     }
+
+    public List<DBDetailOrder> getDetailOrderList() {
+        return detailOrderList;
+    }
+
+    public void setDetailOrderList(List<DBDetailOrder> detailOrderList) {
+        this.detailOrderList = detailOrderList;
+    }
     
 }
