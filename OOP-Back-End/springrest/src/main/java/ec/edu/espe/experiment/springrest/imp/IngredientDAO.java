@@ -30,7 +30,6 @@ public class IngredientDAO implements IIngredientDAO {
             }
         } catch (Exception e) {
             list = new ArrayList<>();
-            list.add(new Ingredient(1, e.toString(), (float) 0));
         }
         return list;
     }
@@ -48,10 +47,7 @@ public class IngredientDAO implements IIngredientDAO {
             //TODO: handle exception
         }
         
-        return ingredient;
-
-            
-            
+        return ingredient;     
     }
 
     @Override

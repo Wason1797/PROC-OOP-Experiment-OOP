@@ -90,8 +90,6 @@ public class SizeDAO implements ISizeDAO{
 
     @Override
     public Size toSize(DBSize dbSize){
-        return new Size(dbSize.getId(), 
-            dbSize.getName(), 
-            dbSize.getPrice());
+        return new Size(dbSize.getId(), dbSize.getName(), dbSize.getPrice());
     }
 }
