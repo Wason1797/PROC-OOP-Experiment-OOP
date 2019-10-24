@@ -13,25 +13,24 @@ import ec.edu.espe.experiment.springrest.model.DBIngredient;
 import ec.edu.espe.experiment.springrest.repo.IIngredientRepo;
 
 @Repository
-public class IngredientDAO implements IIngredientDAO{
+public class IngredientDAO implements IIngredientDAO {
 
     @Autowired
     private IIngredientRepo repo;
 
     @Override
-    public List<Ingredient> getAll(){
+    public List<Ingredient> getAll() {
         List<Ingredient> list = new ArrayList<>();
-        try{
+        try {
             List<DBIngredient> list_dbIngredient = repo.findAll();
-            if(list_dbIngredient != null){
-                for(DBIngredient dbIngredient : list_dbIngredient){
+            if (list_dbIngredient != null) {
+                for (DBIngredient dbIngredient : list_dbIngredient) {
                     list.add(toIngredient(dbIngredient));
                 }
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             list = new ArrayList<>();
-            list.add(new Ingredient(1,e.toString(),(float)0));
+            list.add(new Ingredient(1, e.toString(), (float) 0));
         }
         return list;
     }
@@ -40,6 +39,11 @@ public class IngredientDAO implements IIngredientDAO{
     public Ingredient get(Integer id){
         Ingredient ingredient = null;
         try{
+            Optional<DBIngredient> dbIngredient = repo.findById(id);
+            if (dbIngredient != null) {
+                ingredient = (toIngredient(dbIngredient.get()));
+                
+            }
             
         }
         catch(Exception e){
@@ -49,16 +53,14 @@ public class IngredientDAO implements IIngredientDAO{
     }
 
     @Override
-    public Ingredient post(Ingredient ingredient){       
+    public Ingredient post(Ingredient ingredient) {
         Ingredient response = new Ingredient();
-        try{
-            DBIngredient dbIngredient = new DBIngredient(ingredient.getName(), 
-                ingredient.getPrice());
+        try {
+            DBIngredient dbIngredient = new DBIngredient(ingredient.getName(), ingredient.getPrice());
             repo.save(dbIngredient);
             repo.flush();
             response = toIngredient(dbIngredient);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             response = null;
 
         }
@@ -66,11 +68,11 @@ public class IngredientDAO implements IIngredientDAO{
     }
 
     @Override
-    public Ingredient put(Ingredient ingredient){
+    public Ingredient put(Ingredient ingredient) {
         Ingredient response = null;
-        try{
+        try {
             Optional<DBIngredient> dbIngredient = repo.findById(ingredient.get_id());
-            if(dbIngredient != null){
+            if (dbIngredient != null) {
                 DBIngredient aux = new DBIngredient();
                 aux.setId(dbIngredient.get().getId());
                 aux.setName(ingredient.getName() != null ? ingredient.getName() : dbIngredient.get().getName());
@@ -78,18 +80,15 @@ public class IngredientDAO implements IIngredientDAO{
                 repo.save(aux);
                 repo.flush();
                 response = toIngredient(aux);
-            }                  
-        }
-        catch(Exception e){
+            }
+        } catch (Exception e) {
             response = null;
         }
         return response;
     }
 
     @Override
-    public Ingredient toIngredient(DBIngredient dbIngredient){
-        return new Ingredient(dbIngredient.getId(), 
-            dbIngredient.getName(), 
-            dbIngredient.getPrice());
+    public Ingredient toIngredient(DBIngredient id) {
+        return new Ingredient(id.getId(), id.getName(), id.getPrice());
     }
 }
