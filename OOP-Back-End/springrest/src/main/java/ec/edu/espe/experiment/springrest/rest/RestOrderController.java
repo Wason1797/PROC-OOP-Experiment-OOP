@@ -22,7 +22,7 @@ import ec.edu.espe.experiment.springrest.dto.OrderEntityClient;
 public class RestOrderController{
     @Autowired
     private IOrderDAO dao;
-
+    
     @GetMapping
     public List<Order> getAll() {        
         return dao.getAll();
@@ -30,7 +30,8 @@ public class RestOrderController{
 
     @GetMapping(value = "/id/{id}")
     public Order get(@PathVariable("id") Integer id) {
-        return new Order();
+        Order response = dao.get(id);
+        return response;
     }
 
     @PostMapping
