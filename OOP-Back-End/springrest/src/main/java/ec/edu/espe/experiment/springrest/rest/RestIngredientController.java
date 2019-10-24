@@ -30,10 +30,10 @@ public class RestIngredientController {
     @Autowired
     private IIngredientDAO dao;
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    /*@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Ingredient> getAll() {        
         return dao.getAll();
-    }
+    }*/
 
     @GetMapping(value = "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Ingredient> get(@PathVariable("id") Integer id) {
@@ -62,6 +62,16 @@ public class RestIngredientController {
             return ResponseEntity.status(HttpStatus.OK).body(response);
         } else{
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Ingredient>> getAll() {
+        List<Ingredient> response = dao.getAll();
+        if (response != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
     }
     
