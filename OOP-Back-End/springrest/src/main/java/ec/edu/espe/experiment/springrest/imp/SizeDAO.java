@@ -13,65 +13,63 @@ import ec.edu.espe.experiment.springrest.model.DBSize;
 import ec.edu.espe.experiment.springrest.repo.ISizeRepo;
 
 @Repository
-public class SizeDAO implements ISizeDAO{
+public class SizeDAO implements ISizeDAO {
 
     @Autowired
     private ISizeRepo repo;
 
     @Override
-    public List<Size> getAll(){
+    public List<Size> getAll() {
         List<Size> list = new ArrayList<>();
-        try{
+        try {
             List<DBSize> list_dbSize = repo.findAll();
-            if(list_dbSize != null){
-                for(DBSize dbSize : list_dbSize){
+            if (list_dbSize != null) {
+                for (DBSize dbSize : list_dbSize) {
                     list.add(toSize(dbSize));
                 }
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             list = new ArrayList<>();
+            list.add(new Size(1, e.toString(), (float) 0));
         }
         return list;
     }
 
     @Override
-    public Size get(Integer id){
+    public Size get(Integer id) {
         Size size = null;
-        try{
+        try {
             Optional<DBSize> dbSize = repo.findById(id);
-            if(dbSize != null){
+            if (dbSize != null) {
                 size = toSize(dbSize.get());
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             size = (Size) getAll();
         }
         return size;
     }
 
     @Override
-    public Size post(Size size){       
+    public Size post(Size size) {
         Size response = new Size();
-        try{
+        try {
             DBSize dbSize = new DBSize(size.getName(), 
-                size.getPrice());
+            size.getPrice());
             repo.save(dbSize);
             repo.flush();
             response = toSize(dbSize);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             response = null;
         }
         return response;
     }
 
     @Override
-    public Size put(Size size){
+    public Size put(Size size) {
         Size response = null;
-        try{
+        try {
             Optional<DBSize> dbSize = repo.findById(size.get_id());
-            if(dbSize != null){
+            if (dbSize != null) {
                 DBSize aux = new DBSize();
                 aux.setId(dbSize.get().getId());
                 aux.setName(size.getName() != null ? size.getName() : dbSize.get().getName());
@@ -79,18 +77,15 @@ public class SizeDAO implements ISizeDAO{
                 repo.save(aux);
                 repo.flush();
                 response = toSize(aux);
-            }            
-        }
-        catch(Exception e){
+            }
+        } catch (Exception e) {
             response = null;
         }
         return response;
     }
 
     @Override
-    public Size toSize(DBSize dbSize){
-        return new Size(dbSize.getId(), 
-            dbSize.getName(), 
-            dbSize.getPrice());
+    public Size toSize(DBSize dbSize) {
+        return new Size(dbSize.getId(), dbSize.getName(), dbSize.getPrice());
     }
 }
