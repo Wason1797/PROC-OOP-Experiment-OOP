@@ -12,6 +12,5 @@ def calculate_order_price(order, ingredients):
     suma_total = size_price + ingredient_price
     return round(suma_total, 2)
 
-
 def check_required_keys(keys: tuple, _element: dict):
     return all(_element.get(key) for key in keys)
