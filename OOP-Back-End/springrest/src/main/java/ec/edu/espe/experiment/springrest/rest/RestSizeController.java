@@ -29,7 +29,15 @@ public class RestSizeController {
     private ISizeDAO dao;
 
   
-
+    @GetMapping
+    public ResponseEntity<List<Size>> getAll() {
+        List<Size> response = dao.getAll();
+        if (response != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+    }
     @GetMapping(value = "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Size> get(@PathVariable("id") Integer id) {
         Size response = dao.get(id);
