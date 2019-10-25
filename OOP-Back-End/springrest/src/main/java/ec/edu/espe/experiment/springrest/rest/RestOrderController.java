@@ -2,7 +2,7 @@ package ec.edu.espe.experiment.springrest.rest;
 
 import java.util.List;
 
-import org.apache.coyote.Response;
+import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
