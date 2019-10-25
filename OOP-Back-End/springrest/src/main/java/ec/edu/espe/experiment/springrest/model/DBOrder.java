@@ -16,6 +16,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import ec.edu.espe.experiment.springrest.dto.Ingredient;
+
 @Entity
 public class DBOrder{
     @Id

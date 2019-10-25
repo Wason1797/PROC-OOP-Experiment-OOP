@@ -30,7 +30,8 @@ public class RestOrderController{
 
     @GetMapping(value = "/id/{id}")
     public Order get(@PathVariable("id") Integer id) {
-        return new Order();
+        Order order = dao.get(id);
+        return order;
     }
 
     @PostMapping
