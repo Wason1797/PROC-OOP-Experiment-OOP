@@ -10,6 +10,7 @@ import ec.edu.espe.experiment.springrest.model.DBOrder;
 public interface IOrderDAO{
     public List<Order> getAll();
     public Order get(Integer id);
+    //public Order put(Order entity);
     public Order post(OrderEntityClient entity);
     public Order toOrder(DBOrder dbOrder);
 }
