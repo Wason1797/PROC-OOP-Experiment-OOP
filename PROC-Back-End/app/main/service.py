@@ -53,7 +53,7 @@ def get_ingredients():
 @urls.route('/size', methods=POST)
 def create_size():
     try:
-
+       
         size_serializer = SizeSerializer()
         new_size = size_serializer.load(request.json)
         db.session.add(new_size)
@@ -83,7 +83,10 @@ def get_size_by_id(_id):
     size_serializer = SizeSerializer()
     return size_serializer.jsonify(size) if size else Response(status=404)
 
-
+@urls.route('/size', methods=GET)
+def get_size():
+    result = get_all(Size, SizeSerializer)
+    return jsonify(result)
 # Order Routes
 
 @urls.route('/order', methods=POST)
@@ -93,9 +96,9 @@ def create_order():
         if check_required_keys(('client_name', 'client_dni', 'client_address', 'client_phone', 'size'), request.json):
 
             client_name = request.json.get('client_name')
-            client_dni = None
-            client_address = None
-            client_phone = None
+            client_dni = request.json.get('client_dni')
+            client_address = request.json.get('client_address')
+            client_phone = request.json.get('client_phone')
             size_id = int(request.json.get('size'))
             ingredients = request.json.get('ingredients')
 
@@ -113,7 +116,7 @@ def create_order():
                               for ingredient_id in ingredients] if isinstance(ingredients, list) else []
 
             new_order.total_price = calculate_order_price(new_order, db_ingredients)
-
+            
             db.session.add_all([OrderDetail(order_id=new_order._id,
                                             ingredient_id=ingredient._id,
                                             ingredient_price=ingredient.price)
@@ -138,4 +141,5 @@ def get_orders():
 def get_order_by_id(_id):
     order = Order()
     order_serializer = OrderSerializer()
-    return order_serializer.jsonify({}) if order else Response(status=404)
+    return order_serializer.jsonify(order) if order else Response(status=404)
+
