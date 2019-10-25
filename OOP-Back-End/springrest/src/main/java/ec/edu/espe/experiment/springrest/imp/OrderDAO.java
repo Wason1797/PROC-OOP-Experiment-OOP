@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import ch.qos.logback.core.net.server.Client;
 import ec.edu.espe.experiment.springrest.dao.IDetailDAO;
 import ec.edu.espe.experiment.springrest.dao.IOrderDAO;
 import ec.edu.espe.experiment.springrest.dao.ISizeDAO;
@@ -88,6 +89,26 @@ public class OrderDAO implements IOrderDAO {
             repoOrder.save(dbOrder);
             repoOrder.flush();
             response = get(dbOrder.getId());
+        } catch (Exception e) {
+            response = null;
+        }
+        return response;
+    }
+
+    @Override
+    public Order put(Order order) {
+        Order response = null;
+        try {
+            Optional<DBOrder> Ingredient = repoOrder.findById(ingredient.get_id());
+            if (dbOrder != null) {
+                DBOrder aux = new DBOrder();
+                aux.setId(dbOrder.get().getId());
+                aux.setName(Client.getName() != null ? Client.getName() : dbOrder.get().getName());
+                aux.setPrice(order.getPrice() != null ? order.getPrice() : dbOrder.get().getPrice());
+                repoOrder.save(aux);
+                repoOrder.flush();
+                response = toOrder(aux);
+            }
         } catch (Exception e) {
             response = null;
         }
