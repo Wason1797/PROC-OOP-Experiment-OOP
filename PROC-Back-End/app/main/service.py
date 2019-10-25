@@ -14,7 +14,7 @@ urls = Blueprint('urls', __name__)
 def create_ingredient():
     try:
         ingredient_serializer = IngredientSerializer()
-        new_ingredient = ingredient_serializer.load(request.json)
+        new_ingredient = ingredient_serializer.load(request.json, partial=True)
         db.session.add(new_ingredient)
         db.session.commit()
         return ingredient_serializer.jsonify(new_ingredient), 201
@@ -22,30 +22,18 @@ def create_ingredient():
         return Response(status=400)
 
 
-@urls.route('/ingredient', methods=PUT)
-def update_ingredient():
-    try:
-        ingredient = Ingredient.query.get(request.json.get('_id'))
-        ingredient.name = request.json.get('name') or ingredient.name
-        ingredient.price = request.json.get('price') or ingredient.price
-        db.session.commit()
-        ingredient_serializer = IngredientSerializer()
-        return ingredient_serializer.jsonify(ingredient)
-    except Exception:
-        return Response(status=400)
-
 
 @urls.route('/ingredient/id/<_id>', methods=GET)
 def get_ingredient_by_id(_id):
-    ingredient = Ingredient()
-    ingredient_serializer = IngredientSerializer()
-    return ingredient_serializer.jsonify(ingredient) if ingredient._id else Response(status=404)
-
-
+    ingredient =  Ingredient.query.get(_id)
+    return IgredientSerilaizer().jsonify(ingredient) if ingredient else Response(status=404)
+    
 @urls.route('/ingredient', methods=GET)
 def get_ingredients():
-    result = get_all(Ingredient, IngredientSerializer)
-    return jsonify(result)
+    ingredient_serializer = IngredientSerializer(many = True)
+    ingredient = ingredient.query.all()
+    serializer_ingredient = ingredient_serializer.dump(ingredient)
+    return jsonify(serializer_ingredient)
 
 
 # Pizza Size Routes
@@ -62,8 +50,17 @@ def create_size():
     except Exception:
         return Response(status=400)
 
+@urls.route('/Size', methods=GET)
+def get_size():
+    size_serializer =SizeSerializer(many=True)
+    size = Size.query.all()
+    serializer_size = size_serializer.dump(size)
+    return jsonify(serializer_size)
 
-@urls.route('/size', methods=PUT)
+
+
+
+@urls.route('/size', methods=GET)
 def update_size():
     try:
         size = Size.query.get(request.json.get('_id'))
@@ -77,9 +74,10 @@ def update_size():
         return Response(status=400)
 
 
+
+
 @urls.route('/size/id/<_id>', methods=GET)
-def get_size_by_id(_id):
-    size = Size.query.get(_id)
+def get_size_by_id(_id)
     size_serializer = SizeSerializer()
     return size_serializer.jsonify(size) if size else Response(status=404)
 
@@ -92,10 +90,10 @@ def create_order():
     try:
         if check_required_keys(('client_name', 'client_dni', 'client_address', 'client_phone', 'size'), request.json):
 
-            client_name = request.json.get('client_name')
-            client_dni = None
-            client_address = None
-            client_phone = None
+            client_name = request.json.get('client_dni')
+            client_dni = request.json.get None('client_address')
+            client_address = request.json.get None('client_phone')
+            client_phone = request.json.get None('client_size')
             size_id = int(request.json.get('size'))
             ingredients = request.json.get('ingredients')
 
