@@ -84,7 +84,7 @@ public class OrderDAO implements IOrderDAO {
             List<Ingredient> list_ingredient = daoDetail.post(dbOrder.getId(), entity.getIngredients());
             Size size = daoSize.get(dbOrder.getSize().getId());
         
-            Float ingredient_price = 0;
+            Float ingredient_price = ();
             for(int i=0; i<list_ingredient.size(); i++){
                 ingredient_price = ingredient_price+list_ingredient.get(i).getPrice();
 
