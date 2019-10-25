@@ -5,11 +5,11 @@ def get_all(Model, Serializer):
     result = serializer.dump(_objects)
     return result
 
-
 def calculate_order_price(order, ingredients):
     size_price = order.size.price
-    sum(ingredient.price for ingredient in ingredients)
-    return round(size_price, 2)
+
+    ingredient = sum(ingredient.price for ingredient in ingredients)
+    return round(size_price + ingredient, 2)
 
 
 def check_required_keys(keys: tuple, _element: dict):
