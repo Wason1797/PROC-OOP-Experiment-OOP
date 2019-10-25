@@ -27,8 +27,9 @@ def update_ingredient():
     try:
         ingredient = Ingredient.query.get(request.json.get('_id'))
         ingredient.name = request.json.get('name') or ingredient.name
-        ingredient.price = request.json.get('price') and  ingredient.price
+        ingredient.price = request.json.get('price') or ingredient.price
         db.session.commit()
+        
         ingredient_serializer = IngredientSerializer()
         return ingredient_serializer.jsonify(ingredient)
     except Exception:
@@ -40,6 +41,10 @@ def get_ingredient_by_id(_id):
     ingredient = Ingredient.query.get(_id)
     ingredient_serializer = IngredientSerializer()
     return ingredient_serializer.jsonify(ingredient) if ingredient._id else Response(status=404)
+
+
+
+
 
 
 @urls.route('/ingredient', methods=GET)
