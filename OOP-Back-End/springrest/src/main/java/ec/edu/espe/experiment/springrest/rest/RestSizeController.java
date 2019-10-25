@@ -19,14 +19,19 @@ import org.springframework.web.bind.annotation.RestController;
 import ec.edu.espe.experiment.springrest.dao.ISizeDAO;
 import ec.edu.espe.experiment.springrest.dto.Size;
 
-
+@RequestMapping("/api/size")
 @RestController
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT})
-@RequestMapping("/api/size")
+
 public class RestSizeController {
 
     @Autowired
     private ISizeDAO dao;
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Size> getAll() {        
+        return dao.getAll();
+    }
 
   
 
