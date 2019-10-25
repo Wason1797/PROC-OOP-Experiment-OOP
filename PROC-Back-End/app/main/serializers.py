@@ -22,10 +22,7 @@ class OrderDetailSerializer(ma.ModelSchema):
 
     class Meta:
         model = OrderDetail
-        fields = (
-            'ingredient_price',
-            'ingredient'
-        )
+        fields = ( 'ingredient_price', 'ingredient' )
 
 
 class OrderSerializer(ma.ModelSchema):

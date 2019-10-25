@@ -23,7 +23,7 @@ def create_ingredient():
 
 
 @urls.route('/ingredient', methods=PUT)
-def update_ingredient():
+def update_ingredient(_id):
     try:
         ingredient = Ingredient.query.get(request.json.get('_id'))
         ingredient.name = request.json.get('name') or ingredient.name
@@ -31,7 +31,7 @@ def update_ingredient():
         db.session.commit()
         ingredient_serializer = IngredientSerializer()
         return ingredient_serializer.jsonify(ingredient)
-    except Exception:
+        except Exception:
         return Response(status=400)
 
 
@@ -93,9 +93,9 @@ def create_order():
         if check_required_keys(('client_name', 'client_dni', 'client_address', 'client_phone', 'size'), request.json):
 
             client_name = request.json.get('client_name')
-            client_dni = None
-            client_address = None
-            client_phone = None
+            client_dni = request.json.get('client_dni')
+            client_address = request.json.get('client_address')
+            client_phone = request.json.get('client_phone')
             size_id = int(request.json.get('size'))
             ingredients = request.json.get('ingredients')
 
@@ -104,11 +104,12 @@ def create_order():
                               client_address=client_address,
                               client_phone=client_phone,
                               size_id=size_id)
+             
 
             db.session.add(new_order)
-            db.session.flush()
+            db.session.flush(new_order)
             db.session.refresh(new_order)
-
+        
             db_ingredients = [Ingredient.query.get(int(ingredient_id))
                               for ingredient_id in ingredients] if isinstance(ingredients, list) else []
 
@@ -116,7 +117,7 @@ def create_order():
 
             db.session.add_all([OrderDetail(order_id=new_order._id,
                                             ingredient_id=ingredient._id,
-                                            ingredient_price=ingredient.price)
+                                            ingredient_price=ingredient.price)s
                                 for ingredient in db_ingredients])
 
             db.session.commit()
@@ -136,6 +137,6 @@ def get_orders():
 
 @urls.route('/order/id/<_id>', methods=GET)
 def get_order_by_id(_id):
-    order = Order()
+    order = Order.get("_id")
     order_serializer = OrderSerializer()
     return order_serializer.jsonify({}) if order else Response(status=404)
