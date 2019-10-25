@@ -99,6 +99,7 @@ def create_order():
         if check_required_keys(('client_name', 'client_dni', 'client_address', 'client_phone', 'size'), request.json):
 
             client_name = request.json.get('client_name')
+            
             client_dni = request.json.get('client_dni')
             client_address = request.json.get('client_address')
             client_phone = request.json.get('client_phone')

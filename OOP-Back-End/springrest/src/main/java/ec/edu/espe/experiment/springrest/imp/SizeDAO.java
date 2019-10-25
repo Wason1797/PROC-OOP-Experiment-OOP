@@ -34,10 +34,11 @@ public class SizeDAO implements ISizeDAO{
         }
         return list;
     }
+    
 
     @Override
     public Size get(Integer id){
-        Size size = null;
+        Size size = new Size();
         try{
             Optional<DBSize> dbSize = repo.findById(id);
             if(dbSize != null){
@@ -49,6 +50,7 @@ public class SizeDAO implements ISizeDAO{
         }
         return size;
     }
+    
 
     @Override
     public Size post(Size size){       
