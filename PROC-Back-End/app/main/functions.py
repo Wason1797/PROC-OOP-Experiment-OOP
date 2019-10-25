@@ -8,8 +8,8 @@ def get_all(Model, Serializer):
 
 def calculate_order_price(order, ingredients):
     size_price = order.size.price
-    sum(ingredient.price for ingredient in ingredients)
-    return round(size_price, 2)
+    ingredient_price = sum(ingredient.price for ingredient in ingredients)
+    return size_price+ingredient_price
 
 
 def check_required_keys(keys: tuple, _element: dict):
