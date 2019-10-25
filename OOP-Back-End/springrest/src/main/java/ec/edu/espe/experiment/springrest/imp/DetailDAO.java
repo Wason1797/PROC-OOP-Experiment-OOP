@@ -28,6 +28,7 @@ public class DetailDAO implements IDetailDAO {
     @Autowired
     private IIngredientRepo repoIngredient;
 
+
     @Override
     public List<Detail> getIngredientList(Integer idOrder) {
         List<Detail> listDetail = new ArrayList<>();

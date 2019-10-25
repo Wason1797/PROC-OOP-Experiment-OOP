@@ -17,24 +17,25 @@ import ec.edu.espe.experiment.springrest.dto.Order;
 import ec.edu.espe.experiment.springrest.dto.OrderEntityClient;
 
 @RestController
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT})
+@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT })
 @RequestMapping("/api/order")
-public class RestOrderController{
+public class RestOrderController {
     @Autowired
     private IOrderDAO dao;
 
     @GetMapping
-    public List<Order> getAll() {        
+    public List<Order> getAll() {
         return dao.getAll();
     }
 
     @GetMapping(value = "/id/{id}")
     public Order get(@PathVariable("id") Integer id) {
-        return new Order();
+        return dao.get(id);
     }
 
     @PostMapping
     public Order post(@RequestBody OrderEntityClient entity) {
-       return dao.post(entity);
+        return dao.post(entity);
     }
+
 }
