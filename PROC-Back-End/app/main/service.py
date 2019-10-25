@@ -30,6 +30,7 @@ def update_ingredient():
         ingredient.price = request.json.get('price') or ingredient.price
         db.session.commit()
         ingredient_serializer = IngredientSerializer()
+        return ingredient_serializer.jsonify(ingredient) 
     except Exception:
         return Response(status=400)
 
@@ -97,7 +98,6 @@ def create_order():
             client_address = request.json.get('client_address')
             client_phone = request.json.get('client_phone')
             size_id = int(request.json.get('size'))
-            ingredients = request.json.get('ingredients')
 
             new_order = Order(client_name=client_name,
                               client_dni=client_dni,
@@ -137,5 +137,5 @@ def get_orders():
 @urls.route('/order/id/<_id>', methods=GET)
 def get_order_by_id(_id):
     order = Order.query.get(_id)
-    return OrderSerializer.jsonify(order) if order else Response(status=404)
+    return OrderSerializer().jsonify(order) if order else Response(status=404)
 
