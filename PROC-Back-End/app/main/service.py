@@ -91,7 +91,6 @@ def get_size():
 
 
 # Order Routes
-
 @urls.route('/order', methods=POST)
 def create_order():
 
