@@ -28,7 +28,6 @@ public class RestOrderController{
         return dao.getAll();
     }
     
-
     @GetMapping(value = "/id/{id}")
     public Order get(@PathVariable("id") Integer id) {
         Order response = dao.get(id);

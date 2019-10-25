@@ -14,6 +14,7 @@ public class Order{
     private Float total_price;
 
     public Order(){
+
     }
 
     public Integer get_id() {
