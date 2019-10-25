@@ -22,11 +22,8 @@ class OrderDetailSerializer(ma.ModelSchema):
 
     class Meta:
         model = OrderDetail
-        fields = (
-            'ingredient_price',
-            'ingredient'
-        )
-
+        fields = ('ingredient_price','ingredient')
+        
 
 class OrderSerializer(ma.ModelSchema):
     size = ma.Nested(SizeSerializer)
@@ -34,14 +31,4 @@ class OrderSerializer(ma.ModelSchema):
 
     class Meta:
         model = Order
-        fields = (
-            '_id',
-            'client_name',
-            'client_dni',
-            'client_address',
-            'client_phone',
-            'date',
-            'total_price',
-            'size',
-            'detail'
-        )
+        fields = ('_id','client_name','client_dni','client_address','client_phone','date','total_price','size','detail')
