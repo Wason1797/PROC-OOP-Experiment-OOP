@@ -30,11 +30,19 @@ public class RestOrderController{
 
     @GetMapping(value = "/id/{id}")
     public Order get(@PathVariable("id") Integer id) {
-        return new Order();
+        Order response =  dao.get(id);
+        
+        return response;
     }
 
     @PostMapping
     public Order post(@RequestBody OrderEntityClient entity) {
        return dao.post(entity);
-    }
+    } 
+    /* @PostMapping
+    public Order post(@RequestBody OrderEntityClient entity) {
+        Order response = dao.post(entity);
+        return response;
+    } */
+
 }
