@@ -31,16 +31,21 @@ public class IngredientDAO implements IIngredientDAO{
         }
         catch(Exception e){
             list = new ArrayList<>();
-            list.add(new Ingredient(1,e.toString(),(float)0));
+            //list.add(new Ingredient(1,e.toString(),(float)0));
         }
         return list;
     }
 
     @Override
     public Ingredient get(Integer id){
-        Ingredient ingredient = null;
+        Ingredient ingredient = new Ingredient();
         try{
-            
+            Optional<DBIngredient> aux_ingredient = repo.findById(id);
+            if (aux_ingredient != null) {
+                ingredient = toIngredient(aux_ingredient.get());
+            } else {
+                ingredient = null;
+            }
         }
         catch(Exception e){
             ingredient = null;
